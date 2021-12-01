@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import post from '../../../assets/img/post.png'
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles({
   root: {
@@ -19,8 +20,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Post() {
+const Post = ({ author, title, desc, createdAt, updatedAt }) => {
+  console.log({ author, title, desc, createdAt, updatedAt })
   const classes = useStyles();
+  const dispatch = useDispatch()
+
+  const handleDelete = () => {
+
+  }
 
   return (
     <Card className={classes.root}>
@@ -32,22 +39,23 @@ export default function Post() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+          <Typography variant="body2" component="p">
+            {desc}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
+        <Typography color="textSecondary">
+          {createdAt.substring(0, 10)}
+        </Typography>
         <Button size="small" color="secondary">
           Delete
         </Button>
       </CardActions>
     </Card>
-  );
+  )
 }
+
+export default Post
