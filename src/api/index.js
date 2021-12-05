@@ -1,30 +1,36 @@
-import axios from "axios";
+import axios from 'axios'
 
-const instance = axios.create({
-  baseURL: 'http://localhost:3001/api',
-  headers: {
-    'Content-Type': 'application/json;charset=UTF-8',
-    'Access-Control-Allow-Origin': '*'
-  }
-})
-
-class Api {
-  async fetchPosts() {
-    const { data } = await instance.get('/post')
-    console.log("data GET")
-    return data
-  }
-
-  async newPost(data) {
-    console.log("async createPost", data)
-    const res = await instance.post('/post', data)
-    console.log(res)
-    return res
-  }
-
-  async deletePost(id) {
-    const res = await instance.delete(`/post/:${id}`)
-  }
+const config = {
+	baseURL: process.env.REACT_APP_BASE_URL,
+	'Access-Control-Allow-Origin': '*',
 }
 
-export default new Api()
+// export const client = axios.create({
+// 	baseURL: 'http://localhost:3001/api',
+// 	headers: {
+// 		Authorization: `Bearer ${localStorage.getItem('token')}`,
+// 		'Content-Type': 'application/json;charset=UTF-8',
+// 		'Access-Control-Allow-Origin': '*',
+// 	},
+// })
+
+export const client = axios.create(config)
+
+client.interceptors.request.use((config) => {
+	const token = localStorage.getItem('authToken')
+	if (token) {
+		config.headers['Authorization'] = `Bearer ${token}`
+	} else {
+		delete config.headers['Authorization']
+	}
+	return config
+})
+
+client.interceptors.response.use((res) => {
+	console.log(res)
+	const { token } = res.data
+	if (token) {
+		localStorage.setItem('authToken', token)
+	}
+	return res
+})
