@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Root = () => {
+const Home = () => {
 	return (
 		<center>
 			<Link to='/posts'>go to posts</Link>
@@ -9,4 +9,4 @@ const Root = () => {
 	)
 }
 
-export default Root
+export default Home

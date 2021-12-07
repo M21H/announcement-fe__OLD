@@ -1,12 +1,14 @@
+import Home from '../pages/Home/Home'
 import Login from '../pages/Login/Login'
 import Posts from '../pages/Posts/Posts'
 import Register from '../pages/Register/Register'
-import Root from '../pages/Root/Root'
+import NotFound from '../pages/NotFound/NotFound' 
 
-export const authRoutes = [
+
+export const privateRoutes = [
 	{
 		path: '/',
-		component: Root,
+		component: Home,
 		exact: true,
 	},
 	{
@@ -14,6 +16,11 @@ export const authRoutes = [
 		component: Posts,
 		exact: true,
 	},
+	// {
+	// 	path: '*',
+	// 	component: NotFound,
+	// 	exact: false,
+	// },
 ]
 
 export const publicRoutes = [

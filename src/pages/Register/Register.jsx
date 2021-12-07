@@ -9,29 +9,19 @@ import { register } from '../../redux/actions/auth'
 const Register = () => {
 	const history = useHistory()
 	const dispatch = useDispatch()
-	const username = useInput('', true)
-	const password = useInput('', true)
-	const confirmPassword = useInput('', true)
+	const [username] = useInput('', true)
+	const [password, setPasswordError] = useInput('', true)
+	const [confirmPassword, , setConfirmPasswordError] = useInput('', true)
 
-	const { isAuth } = useSelector(({ auth }) => auth)
-
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		if (password.value !== confirmPassword.value) {
-			password.reset('')
-			confirmPassword.reset('')
-			return alert('passwords not match')
-		}
-
-		const data = { username: username.value, password: password.value }
-		dispatch(register(data))
-
-		if (isAuth) {
-			history.push('/posts')
-			username.reset('')
-			password.reset('')
-      confirmPassword.reset('')
+			setPasswordError('not match')
+			setConfirmPasswordError('not match')
+		} else {
+			const data = { username: username.value, password: password.value }
+			dispatch(register(data))
 		}
 	}
 
@@ -47,42 +37,26 @@ const Register = () => {
 				}}>
 				<h3>Registration</h3>
 				<Form.Group className='mb-3'>
-					<Form.Control
-						type='text'
-						placeholder='username'
-						onChange={username.onChange}
-						onBlur={username.onBlur}
-						value={username.value}
-					/>
+					<Form.Control type='text' placeholder='username' {...username} />
 					{username.error && <Form.Text className='text-danger'>{username.error}</Form.Text>}
 				</Form.Group>
 
 				<Form.Group className='mb-3'>
-					<Form.Control
-						type='password'
-						placeholder='Password'
-						onChange={password.onChange}
-						onBlur={password.onBlur}
-						value={password.value}
-					/>
+					<Form.Control type='password' placeholder='password' {...password} />
 					{password.error && <Form.Text className='text-danger'>{password.error}</Form.Text>}
 				</Form.Group>
 
 				<Form.Group className='mb-3'>
-					<Form.Control
-						type='password'
-						placeholder='Confirm a password'
-						onChange={confirmPassword.onChange}
-						onBlur={confirmPassword.onBlur}
-						value={confirmPassword.value}
-					/>
+					<Form.Control type='password' placeholder='Confirm a password' {...confirmPassword} />
 					{confirmPassword.error && <Form.Text className='text-danger'>{confirmPassword.error}</Form.Text>}
-					<Link to='/auth/login'>Go to login</Link>
 				</Form.Group>
 
-				<Button variant='primary' type='submit' disabled={!username.value || !password.value || !confirmPassword.value}>
-					Register
-				</Button>
+				<Container style={{ display: 'flex', justifyContent: 'space-between', width: 300 }}>
+					<Link to='/auth/login'>Go to registration</Link>
+					<Button variant='primary' type='submit' disabled={!username.value || !password.value || !confirmPassword}>
+						Register
+					</Button>
+				</Container>
 			</Container>
 		</Form>
 	)

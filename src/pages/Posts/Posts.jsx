@@ -7,14 +7,20 @@ import styles from './Posts.module.css'
 import { Spinner } from 'react-bootstrap'
 import CreatePostForm from '../../components/CreatePostForm/CreatePostForm'
 import NavBar from '../../components/Navbar/Navbar'
+import { useHistory } from 'react-router'
 
 const Posts = () => {
 	const dispatch = useDispatch()
+	const history = useHistory()
 	const { items } = useSelector(({ posts }) => posts)
 
 	useEffect(() => {
 		dispatch(getPosts())
 	}, [dispatch])
+
+	const handleBack = () => {
+		history.goBack()
+	}
 
 	return (
 		<>
@@ -22,6 +28,7 @@ const Posts = () => {
 			{items ? (
 				<>
 					<CreatePostForm />
+					<button onClick={handleBack}>back</button>
 					<div className={styles.container}>
 						{items.map((post) => (
 							<Post key={post._id} {...post} />

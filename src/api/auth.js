@@ -10,11 +10,6 @@ class ApiAuth {
 		const { data } = await client.post('auth/register', registerData)
 		return data
 	}
-
-	async logout() {
-		const { data } = await client.get('auth/logout')
-		return data
-	}
 }
 
 export default new ApiAuth()
