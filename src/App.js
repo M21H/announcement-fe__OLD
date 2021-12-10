@@ -1,31 +1,31 @@
-import AppRoutes from './components/AppRoutes'
-import TokenService from './services/storage.service'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import Posts from './pages/Posts/Posts'
 import Home from './pages/Home/Home'
-import NavBar from './components/Navbar/Navbar'
 import PrivateRoute from './components/PrivateRoute'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { initApp } from './redux/actions/app'
+import NotFound from './pages/NotFound/NotFound'
 
 function App() {
-	// const dispatch = useDispatch()
-	// // const { isAuth } = useSelector(({ auth }) => auth)
+	const dispatch = useDispatch()
 
-	// useEffect(() => {
-	// 	dispatch(initApp())
-	// }, [dispatch])
+	useEffect(() => {
+		dispatch(initApp())
+	}, [dispatch])
+
 	return (
 		<>
-			<AppRoutes />
-			{/* <PrivateRoute component={Home} path='/' exact />
-			<PrivateRoute component={Posts} path='/posts' exact />
-			<Route path='/auth/login' component={Login} exact />
-			<Route path='/auth/register' component={Register} exact /> */}
+			<Switch>
+				<PrivateRoute path='/' exact component={Home} />
+				<PrivateRoute path='/posts' exact component={Posts} />
+				<Route path='/auth/login' exact component={Login} />
+				<Route path='/auth/register' exact component={Register} />
+				<Route path='*' component={NotFound} />
+			</Switch>
 		</>
 	)
 }

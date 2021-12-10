@@ -6,6 +6,8 @@ import AuthReducer from './reduces/auth'
 const rootReducer = combineReducers({ posts: PostReduce, auth: AuthReducer })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+
+export default store
 
 window.store = store

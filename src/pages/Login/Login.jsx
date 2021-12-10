@@ -1,6 +1,5 @@
-import React, { useRef } from 'react'
-import { Form, Button, Container, Col } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import { Form, Button, Container } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import useInput from '../../hooks/useInput'
@@ -9,14 +8,15 @@ import { login } from '../../redux/actions/auth'
 const Login = () => {
 	const history = useHistory()
 	const dispatch = useDispatch()
-	const [username, setUsername, setUsernameError] = useInput('', true)
-	const [password, setPassword, setPasswordError] = useInput('', true)
+	const [username] = useInput('', true)
+	const [password] = useInput('', true)
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault()
 		const data = { username: username.value, password: password.value }
-		await dispatch(login(data))
-		history.push('/')
+		dispatch(login(data)).then(() => {
+			history.push('/')
+		})
 	}
 
 	return (

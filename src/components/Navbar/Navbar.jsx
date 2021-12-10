@@ -1,19 +1,15 @@
 import React from 'react'
-import { Container, Form, FormControl, Nav, Navbar, NavDropdown, Button, ListGroup } from 'react-bootstrap'
+import { Container, Form, FormControl, Navbar, NavDropdown, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import { logout } from '../../redux/actions/auth'
 
 const NavBar = () => {
 	const dispatch = useDispatch()
-	const history = useHistory()
-	const { username, isAuth } = useSelector(({ auth }) => auth)
+	const { username } = useSelector(({ auth }) => auth)
 
 	const handleLOgout = () => {
-		dispatch(logout()).then(() => {
-			history.push('/auth/login')
-		})
+		dispatch(logout())
 	}
 
 	return (

@@ -1,14 +1,14 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import useInput from '../../hooks/useInput'
 import { register } from '../../redux/actions/auth'
+import { useHistory } from 'react-router'
 
 const Register = () => {
-	const history = useHistory()
 	const dispatch = useDispatch()
+	const history = useHistory()
 	const [username] = useInput('', true)
 	const [password, setPasswordError] = useInput('', true)
 	const [confirmPassword, , setConfirmPasswordError] = useInput('', true)
@@ -21,7 +21,9 @@ const Register = () => {
 			setConfirmPasswordError('not match')
 		} else {
 			const data = { username: username.value, password: password.value }
-			dispatch(register(data))
+			dispatch(register(data)).then(() => {
+				history.push('/')
+			})
 		}
 	}
 
