@@ -1,6 +1,5 @@
 import React from 'react'
 import useInput from '../../hooks/useInput'
-import { Button, Form } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { createPost } from '../../redux/actions/posts'
 
@@ -28,26 +27,31 @@ const CreatePostForm = () => {
 	}
 
 	return (
-		<Form style={{ width: 400 }}>
-			<Form.Group className='mb-3'>
-				<Form.Control type='text' placeholder='author' onChange={author.onChange} onBlur={author.onBlur} />
-				{author.error && <Form.Text className='text-danger'>{author.error}</Form.Text>}
-			</Form.Group>
+		<form>
+			<input type='text' placeholder='author' onChange={author.onChange} onBlur={author.onBlur} />
+			{author.error && <span className='text-danger'>{author.error}</span>}
+		</form>
 
-			<Form.Group className='mb-3'>
-				<Form.Control type='text' placeholder='title' onChange={title.onChange} onBlur={title.onBlur} />
-				{title.error && <Form.Text className='text-danger'>{title.error}</Form.Text>}
-			</Form.Group>
+		// <Form style={{ width: 400 }}>
+		// 	<Form.Group className='mb-3'>
+		// 		<Form.Control type='text' placeholder='author' onChange={author.onChange} onBlur={author.onBlur} />
+		// 		{author.error && <Form.Text className='text-danger'>{author.error}</Form.Text>}
+		// 	</Form.Group>
 
-			<Form.Group className='mb-3'>
-				<Form.Control type='text' placeholder='description' onChange={desc.onChange} onBlur={desc.onBlur} />
-				{desc.error && <Form.Text className='text-danger'>{desc.error}</Form.Text>}
-			</Form.Group>
+		// 	<Form.Group className='mb-3'>
+		// 		<Form.Control type='text' placeholder='title' onChange={title.onChange} onBlur={title.onBlur} />
+		// 		{title.error && <Form.Text className='text-danger'>{title.error}</Form.Text>}
+		// 	</Form.Group>
 
-			<Button variant='primary' type='submit' onClick={handleSubmit}>
-				Submit
-			</Button>
-		</Form>
+		// 	<Form.Group className='mb-3'>
+		// 		<Form.Control type='text' placeholder='description' onChange={desc.onChange} onBlur={desc.onBlur} />
+		// 		{desc.error && <Form.Text className='text-danger'>{desc.error}</Form.Text>}
+		// 	</Form.Group>
+
+		// 	<Button variant='primary' type='submit' onClick={handleSubmit}>
+		// 		Submit
+		// 	</Button>
+		// </Form>
 	)
 }
 

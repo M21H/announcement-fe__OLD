@@ -1,8 +1,10 @@
 import React from 'react'
-import { Container, Form, FormControl, Navbar, NavDropdown, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
+import { Link, NavLink } from 'react-router-dom'
 import { logout } from '../../redux/actions/auth'
+
+import styles from './Navbar.module.css'
 
 const NavBar = () => {
 	const dispatch = useDispatch()
@@ -14,23 +16,22 @@ const NavBar = () => {
 
 	return (
 		<>
-			<Navbar expand='lg'>
-				<Container>
-					<Navbar.Brand href='#' variant='primary'>
-						Announcement
-					</Navbar.Brand>
-					<Navbar.Toggle aria-controls='navbarScroll' />
-					<Form className='d-flex'>
-						<FormControl type='search' placeholder='Search by title' className='me-2' aria-label='Search' />
-						<Button variant='outline-success'>Search</Button>
-					</Form>
-					<Navbar.Collapse className='justify-content-end'>
-						<NavDropdown title={username}>
-							<NavDropdown.Item onClick={handleLOgout}>Logout</NavDropdown.Item>
-						</NavDropdown>
-					</Navbar.Collapse>
-				</Container>
-			</Navbar>
+			<header className={styles.header}>
+				<div className='container'>
+					<NavLink className={styles.header__logoLink} to='/posts'>
+						<p>Announcement</p>
+					</NavLink>
+					<div className='header__search'>
+						<input className={styles.header__input} type='text' placeholder='search by title' />
+						<button type='button'>search</button>
+					</div>
+					<div className='header__aboutUser'>
+						<div className={styles.aboutUser__username} onClick={handleLOgout}>
+							{username}
+						</div>
+					</div>
+				</div>
+			</header>
 		</>
 	)
 }

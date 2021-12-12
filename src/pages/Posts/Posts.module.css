@@ -9,5 +9,6 @@
 .spinner {
 	display: grid;
 	place-items: center;
-	height: calc(100vh - 46px)
+	height: calc(100vh - 50px);
+	font-size: 30px;
 }

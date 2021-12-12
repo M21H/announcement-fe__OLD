@@ -1,0 +1,28 @@
+.header {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: black;
+	color: white;
+}
+
+.header__logoLink {
+	color: white !important;
+}
+
+.header__icon {
+	width: 50px;
+}
+
+.header__input {
+	outline: none;
+	padding: 0 5px;
+	height: 30px;
+	margin-right: 10px;
+}
+
+.aboutUser__username:hover {
+	cursor: pointer;
+}

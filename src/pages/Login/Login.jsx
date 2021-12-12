@@ -1,9 +1,10 @@
 import React from 'react'
-import { Form, Button, Container } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import useInput from '../../hooks/useInput'
 import { login } from '../../redux/actions/auth'
+
+import styles from './Styles.module.css'
 
 const Login = () => {
 	const history = useHistory()
@@ -15,39 +16,45 @@ const Login = () => {
 		e.preventDefault()
 		const data = { username: username.value, password: password.value }
 		dispatch(login(data)).then(() => {
-			history.push('/')
+			history.push('/posts')
 		})
 	}
 
 	return (
-		<Form onSubmit={handleSubmit}>
-			<Container
-				style={{
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-					flexDirection: 'column',
-					height: '100vh',
-				}}>
-				<h3>Login</h3>
-				<Form.Group className='mb-3'>
-					<Form.Control type='text' placeholder='username' {...username} />
-					{username.error && <Form.Text className='text-danger'>{username.error}</Form.Text>}
-				</Form.Group>
+		<div className={styles.login}>
+			<form className={styles.login__form} onSubmit={handleSubmit}>
+				<h3 className='header__text'>Login</h3>
+				<input
+					className={styles.login__formInput}
+					style={{ border: username.error && '2px solid red' }}
+					type='text'
+					placeholder='username'
+					{...username}
+					tabIndex={1}
+				/>
+				{username.error && <span className={styles.error}>{username.error}</span>}
 
-				<Form.Group className='mb-3'>
-					<Form.Control type='password' placeholder='Password' {...password} />
-					{password.error && <Form.Text className='text-danger'>{password.error}</Form.Text>}
-				</Form.Group>
+				<input
+					className={styles.login__formInput}
+					style={{ border: password.error && '2px solid red' }}
+					type='password'
+					placeholder='password'
+					{...password}
+					tabIndex={2}
+				/>
+				{password.error && <span className={styles.error}>{password.error}</span>}
 
-				<Container style={{ display: 'flex', justifyContent: 'space-between', width: 300 }}>
-					<Link to='/auth/register'>Go to registration</Link>
-					<Button variant='primary' type='submit' disabled={!username.value || !password.value}>
+				<div className={styles.login__actions}>
+					<Link to='/auth/register' tabIndex={4}>
+						Go to registration
+					</Link>
+
+					<button className='button' type='submit' disabled={!username.value || !password.value} tabIndex={3}>
 						Login
-					</Button>
-				</Container>
-			</Container>
-		</Form>
+					</button>
+				</div>
+			</form>
+		</div>
 	)
 }
 

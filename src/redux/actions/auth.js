@@ -1,7 +1,7 @@
 import { SET_AUTH_USER_DATA } from '../types'
 import ApiAuth from '../../api/auth'
 import TokenService from '../../services/storage.service'
-import jwtDecode from 'jwt-decode'
+import { decodedUser } from '../../utils/decode'
 
 export const actions = {
 	setAuthData: (id, username, createdAt, isAuth) => ({
@@ -13,7 +13,7 @@ export const actions = {
 const _loginRegister = async (dispatch, data, api) => {
 	try {
 		const { token } = await api(data)
-		const user = jwtDecode(token)
+		const user = decodedUser(token)
 		dispatch(actions.setAuthData(user.id, user.username, user.createdAt, true))
 	} catch (e) {
 		console.log(e)

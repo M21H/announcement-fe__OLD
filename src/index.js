@@ -5,7 +5,8 @@ import App from './App'
 import { BrowserRouter as Router } from 'react-router-dom'
 import TokenService from './services/storage.service'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
+import './index.css'
+
 import store from './redux/store'
 
 ReactDOM.render(

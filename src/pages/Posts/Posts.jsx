@@ -4,10 +4,10 @@ import { getPosts } from '../../redux/actions/posts'
 import Post from '../../components/Post/Post'
 
 import styles from './Posts.module.css'
-import { Spinner } from 'react-bootstrap'
 import CreatePostForm from '../../components/CreatePostForm/CreatePostForm'
 import NavBar from '../../components/Navbar/Navbar'
 import { useHistory } from 'react-router'
+import { Link } from 'react-router-dom'
 
 const Posts = () => {
 	const dispatch = useDispatch()
@@ -27,8 +27,6 @@ const Posts = () => {
 			<NavBar />
 			{items ? (
 				<>
-					<CreatePostForm />
-					<button onClick={handleBack}>back</button>
 					<div className={styles.container}>
 						{items.map((post) => (
 							<Post key={post._id} {...post} />
@@ -36,11 +34,7 @@ const Posts = () => {
 					</div>
 				</>
 			) : (
-				<div className={styles.spinner}>
-					<Spinner animation='border' variant='primary' role='status'>
-						<span className='visually-hidden'>Loading...</span>
-					</Spinner>
-				</div>
+				<div className={styles.spinner}>Loading...</div>
 			)}
 		</>
 	)
