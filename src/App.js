@@ -10,6 +10,7 @@ import NotFound from './pages/NotFound/NotFound'
 import Post from './redux/reduces/posts'
 import Login from './pages/Login/Login'
 import Register from './pages/Login/Register'
+import EditPost from './components/Modals/EditPost/EditPost.modal'
 
 function App() {
 	const dispatch = useDispatch()
@@ -21,9 +22,8 @@ function App() {
 	return (
 		<>
 			<Switch>
-				{/* <PrivateRoute path='/' exact component={Home} /> */}
+				<PrivateRoute path='/' exact component={Home} />
 				<PrivateRoute path='/posts' exact component={Posts} />
-				{/* <PrivateRoute path='/posts/:id' exact component={Post} /> */}
 				<Route path='/auth/login' exact component={Login} />
 				<Route path='/auth/register' exact component={Register} />
 				{/* <Route path='*' component={NotFound} /> */}

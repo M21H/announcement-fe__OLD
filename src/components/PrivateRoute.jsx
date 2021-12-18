@@ -5,6 +5,7 @@ import TokenService from '../services/storage.service'
 
 const PrivateRoute = ({ children, ...rest }) => {
 	const { isAuth } = useSelector(({ auth }) => auth)
+
 	const token = TokenService.getAuthToken()
 
 	const authenticated = isAuth || token

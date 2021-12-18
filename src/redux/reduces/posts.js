@@ -1,4 +1,4 @@
-import { DELETE_POST, SET_LOADING, SET_POSTS, CREATE_POST } from '../types'
+import { DELETE_POST, SET_LOADING, SET_POSTS, CREATE_POST, GET_POST, SET_POST } from '../types'
 
 const initState = {
 	items: null,

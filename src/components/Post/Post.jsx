@@ -1,26 +1,35 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import EditPostModal from '../Modals/EditPost/EditPost.modal'
 
-const Post = ({ _id, desc, title }) => {
-	const { id } = useParams()
-	console.log(id)
+import styles from './Post.module.css'
+
+const Post = ({ _id, desc, title, createdAt }) => {
+	const [isModalOpened, setIsModalOpened] = useState(false)
+
+	const toggleModal = () => {
+		setIsModalOpened(!isModalOpened)
+	}
+
 	return (
-		<>
-		</>
-		// <Link to={`/posts/${_id}`}>
-		// 	<Card style={{ width: '25rem', margin: 10 }}>
-		// 		<Card.Body>
-		// 			<Card.Title>{title}</Card.Title>
-		// 			<Card.Subtitle className='mb-2 text-muted'>Card Subtitle</Card.Subtitle>
-		// 			<Card.Text>{desc}</Card.Text>
-		// 			<ButtonGroup size='sm' className=''>
-		// 				<Button variant='primary'>About</Button>
-		// 				<Button variant='danger'>Delete</Button>
-		// 			</ButtonGroup>
-		// 		</Card.Body>
-		// 	</Card>
-		// </Link>
+		<div className={styles.container}>
+			<div>
+				<div className={styles.title}>{title}</div>
+				<p className={styles.desc}>{desc}</p>
+			</div>
+
+			<div className={styles.details}>
+				<span className={styles.postedOn}>Posted on: {createdAt.slice(0, 10)}</span>
+				<div className={styles.actions}>
+					<NavLink to={`/posts/${_id}`}>About</NavLink>
+
+					<button onClick={toggleModal}>Edit</button>
+
+					<EditPostModal isOpen={isModalOpened} onClose={toggleModal} />
+				</div>
+			</div>
+		</div>
 	)
 }
 

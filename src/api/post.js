@@ -6,6 +6,11 @@ class ApiPost {
 		return data
 	}
 
+	async fetchPost(id) {
+		const { data } = await client.get(`/posts/${id}`)
+		return data
+	}
+
 	async createPost(postData) {
 		const { data } = await client.post('/posts', postData)
 		return data

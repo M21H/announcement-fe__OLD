@@ -4,10 +4,8 @@ import { getPosts } from '../../redux/actions/posts'
 import Post from '../../components/Post/Post'
 
 import styles from './Posts.module.css'
-import CreatePostForm from '../../components/CreatePostForm/CreatePostForm'
 import NavBar from '../../components/Navbar/Navbar'
 import { useHistory } from 'react-router'
-import { Link } from 'react-router-dom'
 
 const Posts = () => {
 	const dispatch = useDispatch()
