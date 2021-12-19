@@ -5,12 +5,10 @@ import Post from '../../components/Post/Post'
 
 import styles from './Posts.module.css'
 import NavBar from '../../components/Navbar/Navbar'
-import { useHistory } from 'react-router'
-import NewPostModal from '../../components/Modals/NewPost/NewPost.modal'
+import NewPost from '../../components/NewPost/NewPost'
 
 const Posts = () => {
 	const dispatch = useDispatch()
-	const history = useHistory()
 	const { items } = useSelector(({ posts }) => posts)
 
 	const [isModalOpened, setIsModalOpened] = useState(false)
@@ -18,10 +16,6 @@ const Posts = () => {
 	useEffect(() => {
 		dispatch(getPosts())
 	}, [dispatch])
-
-	const handleBack = () => {
-		history.goBack()
-	}
 
 	const toggleModal = () => {
 		setIsModalOpened(!isModalOpened)
@@ -35,7 +29,7 @@ const Posts = () => {
 					create post
 				</button>
 			</center>
-			{isModalOpened && <NewPostModal onClose={toggleModal} />}
+			{isModalOpened && <NewPost onClose={toggleModal} />}
 			{items ? (
 				<>
 					<div className={styles.container}>

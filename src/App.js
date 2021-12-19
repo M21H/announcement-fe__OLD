@@ -1,7 +1,6 @@
 import { Route, Switch } from 'react-router-dom'
 
 import Posts from './pages/Posts/Posts'
-import Home from './pages/Home/Home'
 import PrivateRoute from './components/PrivateRoute'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'

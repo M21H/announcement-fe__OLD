@@ -12,13 +12,11 @@ const EditPost = ({ _id, title, desc, onClose }) => {
 	const [postDesc, setPostDesc] = useInput(desc, false)
 
 	useEffect(() => {
-		setPostTitle(title)
-		setPostDesc(desc)
 		return () => {
 			setPostTitle('')
 			setPostDesc('')
 		}
-	}, [title, desc])
+	}, [setPostTitle, setPostDesc])
 
 	const resetFields = () => {
 		setPostTitle('')
