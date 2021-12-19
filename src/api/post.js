@@ -11,14 +11,20 @@ class ApiPost {
 		return data
 	}
 
+	async updatePost(id, postData) {
+		const { data } = await client.put(`/posts/${id}`, postData)
+		return data
+	}
+
 	async createPost(postData) {
 		const { data } = await client.post('/posts', postData)
 		return data
 	}
 
-	// async deletePost(id) {
-	// 	const res = await client.delete(`/posts/:${id}`)
-	// }
+	async deletePost(id) {
+		const { data } = await client.delete(`/posts/${id}`)
+		return data
+	}
 }
 
 export default new ApiPost()

@@ -1,4 +1,4 @@
-import { DELETE_POST, SET_LOADING, SET_POSTS, CREATE_POST, GET_POST, SET_POST } from '../types'
+import { CREATE_POST, DELETE_POST, SET_LOADING, SET_POSTS, UPDATE_POST } from '../types'
 
 const initState = {
 	items: null,
@@ -13,17 +13,26 @@ const Post = (state = initState, action) => {
 			return {
 				...state,
 				items: payload.data,
-				isLoading: false,
+			}
+		case UPDATE_POST:
+			return {
+				...state,
+				items: state.items.map((item) => (item._id === payload.id ? payload.post : item)),
 			}
 		case SET_LOADING:
 			return {
 				...state,
-				isLoading: true,
+				isLoading: payload,
 			}
 		case CREATE_POST:
 			return {
 				...state,
-				items: [...state.items, payload],
+				items: [payload, ...state.items],
+			}
+		case DELETE_POST:
+			return {
+				...state,
+				items: state.items.filter((item) => item._id !== payload),
 			}
 		default:
 			return state

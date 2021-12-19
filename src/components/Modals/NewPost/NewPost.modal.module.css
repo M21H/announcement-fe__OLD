@@ -7,8 +7,7 @@
 	height: 80%;
 	background-color: white;
 	padding: 20px;
-
-  z-index: 3;
+	z-index: 3;
 }
 
 .overlay {
@@ -27,4 +26,14 @@
 	width: 30px;
 	height: 30px;
 	cursor: pointer;
+}
+
+.form {
+  display: grid;
+  place-items: center;
+  /* height: 100; */
+}
+
+.error {
+	color: red;
 }
