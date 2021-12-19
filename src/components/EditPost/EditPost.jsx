@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import useInput from '../../hooks/useInput'
 import { deletePost, updatePost } from '../../redux/actions/posts'
@@ -6,17 +6,29 @@ import Modal from '../Modals/Modal'
 
 import styles from './EditPost.module.css'
 
-const EditPost = ({ _id, title, desc, onClose }) => {
+const EditPost = ({ _id, title, desc, isOpen }) => {
+	const modalRef = useRef()
+
 	const dispatch = useDispatch()
 	const [postTitle, setPostTitle] = useInput(title, false)
 	const [postDesc, setPostDesc] = useInput(desc, false)
 
+	const handleOpenModal = () => {
+		modalRef.current.handleOpen()
+	}
+
+	const handleCloseModal = () => {
+		modalRef.current.handleClose()
+	}
+
 	useEffect(() => {
+		setPostTitle(title)
+		setPostDesc(desc)
 		return () => {
 			setPostTitle('')
 			setPostDesc('')
 		}
-	}, [setPostTitle, setPostDesc])
+	}, [title, desc])
 
 	const resetFields = () => {
 		setPostTitle('')
@@ -30,7 +42,7 @@ const EditPost = ({ _id, title, desc, onClose }) => {
 			const data = { title: postTitle.value, desc: postDesc.value }
 
 			dispatch(updatePost(_id, data))
-			onClose()
+			handleCloseModal()
 		}
 	}
 
@@ -39,11 +51,16 @@ const EditPost = ({ _id, title, desc, onClose }) => {
 
 		if (confirm) {
 			dispatch(deletePost(_id))
-			onClose()
+			handleCloseModal()
 		}
 	}
+
+	if (!isOpen) {
+		return null
+	}
+  
 	return (
-		<Modal titleModal='Edit post' onClose={onClose}>
+		<Modal ref={modalRef} titleModal='Edit post'>
 			<form className={styles.form} onSubmit={handleSubmit}>
 				<input type='text' {...postTitle} placeholder={title || 'title'} />
 				<textarea {...postDesc} placeholder={desc || 'description'} />

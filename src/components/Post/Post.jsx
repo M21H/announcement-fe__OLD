@@ -26,7 +26,7 @@ const Post = ({ _id, desc, title, createdAt }) => {
 					<span style={{ cursor: 'pointer' }} onClick={toggleModal}>
 						Edit
 					</span>
-					{isModalOpened && <EditPost onClose={toggleModal} _id={_id} title={title} desc={desc} />}
+					<EditPost _id={_id} title={title} desc={desc} isOpen={isModalOpened} />
 				</div>
 			</div>
 		</div>
