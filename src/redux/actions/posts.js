@@ -10,10 +10,10 @@ const postActions = {
 	setError: (payload) => ({ type: SET_ERROR, payload }),
 }
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (title) => async (dispatch) => {
 	dispatch(postActions.setLoading(true))
 	try {
-		const posts = await ApiPost.fetchPosts()
+		const posts = await ApiPost.fetchPosts(title)
 		dispatch(postActions.setPosts(posts))
 		dispatch(postActions.setLoading(false))
 	} catch (e) {

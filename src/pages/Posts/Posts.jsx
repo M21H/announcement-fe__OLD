@@ -1,35 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../../redux/actions/posts'
-import Post from '../../components/Post/Post'
 
-import styles from './Posts.module.css'
+import Post from '../../components/Post/Post'
 import NavBar from '../../components/Navbar/Navbar'
 import NewPost from '../../components/NewPost/NewPost'
+
+import styles from './Posts.module.css'
 
 const Posts = () => {
 	const dispatch = useDispatch()
 	const { items } = useSelector(({ posts }) => posts)
 
-	const [isModalOpened, setIsModalOpened] = useState(false)
-
 	useEffect(() => {
 		dispatch(getPosts())
 	}, [dispatch])
 
-	const toggleModal = () => {
-		setIsModalOpened(!isModalOpened)
-	}
-
 	return (
 		<>
 			<NavBar />
-			<center>
-				<button style={{ margin: 10 }} type='button' onClick={toggleModal}>
-					create post
-				</button>
-			</center>
-			{isModalOpened && <NewPost onClose={toggleModal} />}
+			<NewPost />
 			{items ? (
 				<>
 					<div className={styles.container}>

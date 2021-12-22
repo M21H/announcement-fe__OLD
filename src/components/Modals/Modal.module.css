@@ -17,10 +17,11 @@
 	right: 0;
 	bottom: 0;
 	z-index: 2;
+	/* height: 100%; */
 	background-color: rgba(3, 3, 3, 0.5);
 }
 
-.closeButton {
+.modalTop__closeButton {
 	position: absolute;
 	right: 20px;
 	width: 30px;
@@ -32,4 +33,16 @@
   display: grid;
   place-items: center;
   /* height: 100; */
+}
+
+.modalTop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalTop__title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
 }

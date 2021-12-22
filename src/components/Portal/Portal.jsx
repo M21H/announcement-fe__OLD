@@ -5,6 +5,7 @@ const Portal = ({ children }) => {
 	const [container] = useState(() => document.createElement('div'))
 
 	useEffect(() => {
+		container.setAttribute('id', 'modal-root')
 		document.body.appendChild(container)
 		return () => {
 			document.body.removeChild(container)

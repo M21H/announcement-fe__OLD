@@ -15,10 +15,13 @@ const Login = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const data = { username: username.value, password: password.value }
-		dispatch(login(data)).then(() => {
+		dispatch(login(data))
+		.then(() => {
 			history.push('/posts')
 		})
 	}
+
+	console.log('render')
 
 	return (
 		<div className={styles.login}>
