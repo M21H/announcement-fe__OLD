@@ -1,21 +1,16 @@
-import { INIT_APP_SUCCESS, INIT_APP_UNSUCCESS } from '../types'
+export const INIT_APP = 'INIT_APP'
 
 const initState = {
 	isInitialized: false,
 }
 
 const appReducer = (state = initState, action) => {
-	const { type } = action
+	const { type, payload } = action
 	switch (type) {
-		case INIT_APP_SUCCESS:
+		case INIT_APP:
 			return {
 				...state,
-				isInitialized: true,
-			}
-		case INIT_APP_UNSUCCESS:
-			return {
-				...state,
-				isInitialized: false,
+				isInitialized: payload,
 			}
 		default:
 			return state

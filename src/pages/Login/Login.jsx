@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import useInput from '../../hooks/useInput'
+import { appActions } from '../../redux/actions/app'
 import { login } from '../../redux/actions/auth'
 
 import styles from './Styles.module.css'
@@ -12,16 +13,15 @@ const Login = () => {
 	const [username] = useInput('', true)
 	const [password] = useInput('', true)
 
+	dispatch(appActions.initApp(false))
+
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		const data = { username: username.value, password: password.value }
-		dispatch(login(data))
-		.then(() => {
+		dispatch(login(data)).then(() => {
 			history.push('/posts')
 		})
 	}
-
-	console.log('render')
 
 	return (
 		<div className={styles.login}>

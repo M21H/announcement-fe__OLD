@@ -1,26 +1,21 @@
-import React, { useEffect } from 'react'
+import React, { memo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../../redux/actions/posts'
 
 import Post from '../../components/Post/Post'
-import NavBar from '../../components/Navbar/Navbar'
 import NewPost from '../../components/NewPost/NewPost'
+import NavBar from '../../components/Navbar/Navbar'
 
 import styles from './Posts.module.css'
 
 const Posts = () => {
-	const dispatch = useDispatch()
 	const { items } = useSelector(({ posts }) => posts)
-
-	useEffect(() => {
-		dispatch(getPosts())
-	}, [dispatch])
 
 	return (
 		<>
 			<NavBar />
 			<NewPost />
-			{items ? (
+			{items.length > 0 ? (
 				<>
 					<div className={styles.container}>
 						{items.map((post) => (

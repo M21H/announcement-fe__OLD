@@ -1,11 +1,10 @@
 import TokenService from '../../services/storage.service'
 import { authActions } from './auth'
 import { decodedUser } from '../../utils/decode'
-import { INIT_APP_SUCCESS, INIT_APP_UNSUCCESS } from '../types'
+import { INIT_APP } from '../reduces/app'
 
-const appActions = {
-	initAppSuccess: () => ({ type: INIT_APP_SUCCESS }),
-	initAppUnsuccess: () => ({ type: INIT_APP_UNSUCCESS }),
+export const appActions = {
+	initApp: (boolean) => ({ type: INIT_APP, payload: boolean }),
 }
 
 export const initApp = () => (dispatch) => {
@@ -13,9 +12,9 @@ export const initApp = () => (dispatch) => {
 	if (token) {
 		const user = decodedUser(token)
 		dispatch(authActions.setAuthData(user.id, user.username, user.createdAt, true))
-		dispatch(appActions.initAppSuccess())
+		dispatch(appActions.initApp(true))
 	} else {
 		dispatch(authActions.setAuthData(null, null, null, false))
-		dispatch(appActions.initAppUnsuccess())
+		dispatch(appActions.initApp(false))
 	}
 }

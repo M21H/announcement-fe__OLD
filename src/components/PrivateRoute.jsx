@@ -7,7 +7,6 @@ const PrivateRoute = ({ children, ...rest }) => {
 	const { isAuth } = useSelector(({ auth }) => auth)
 
 	const token = TokenService.getAuthToken()
-
 	const authenticated = isAuth || token
 
 	return <Route {...rest}>{authenticated ? children : <Redirect to='/auth/login' />}</Route>

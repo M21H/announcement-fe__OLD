@@ -1,18 +1,26 @@
-import { CREATE_POST, DELETE_POST, SET_LOADING, SET_POSTS, UPDATE_POST } from '../types'
+export const SET_POSTS = 'SET_POSTS'
+
+export const UPDATE_POST = 'UPDATE_POST'
+export const CREATE_POST = 'CREATE_POST'
+export const DELETE_POST = 'DELETE_POST'
+export const SET_LOADING = 'SET_LOADING'
+export const SET_ERROR = 'SET_ERROR'
 
 const initState = {
-	items: null,
+	items: [],
 	isLoading: false,
 	error: null,
+	selectedItem: null,
 }
 
 const Post = (state = initState, action) => {
 	const { type, payload } = action
 	switch (type) {
 		case SET_POSTS:
+			// debugger
 			return {
 				...state,
-				items: payload.data,
+				items: payload,
 			}
 		case UPDATE_POST:
 			return {

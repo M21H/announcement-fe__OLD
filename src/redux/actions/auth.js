@@ -1,7 +1,7 @@
-import { SET_AUTH_USER_DATA } from '../types'
 import ApiAuth from '../../api/auth'
 import TokenService from '../../services/storage.service'
 import { decodedUser } from '../../utils/decode'
+import { SET_AUTH_USER_DATA } from '../reduces/auth'
 
 export const authActions = {
 	setAuthData: (id, username, createdAt, isAuth) => ({
@@ -12,8 +12,8 @@ export const authActions = {
 
 const _loginRegister = async (dispatch, data, api) => {
 	try {
-		const { token } = await api(data)
-		const user = decodedUser(token)
+		await api(data)
+		const user = decodedUser(TokenService.getAuthToken())
 		dispatch(authActions.setAuthData(user.id, user.username, user.createdAt, true))
 	} catch (e) {
 		console.log(e)
@@ -21,11 +21,11 @@ const _loginRegister = async (dispatch, data, api) => {
 }
 
 export const login = (loginData) => async (dispatch) => {
-	await _loginRegister(dispatch, loginData, ApiAuth.login)
+	return await _loginRegister(dispatch, loginData, ApiAuth.login)
 }
 
 export const register = (registerData) => async (dispatch) => {
-	await _loginRegister(dispatch, registerData, ApiAuth.register)
+	return await _loginRegister(dispatch, registerData, ApiAuth.register)
 }
 
 export const logout = () => (dispatch) => {

@@ -11,15 +11,15 @@ import styles from './Navbar.module.css'
 const NavBar = () => {
 	const dispatch = useDispatch()
 	const { username } = useSelector(({ auth }) => auth)
-	const [search, setSearch] = useInput('', false)
+	const [searchByTitle, setSearchByTitle] = useInput('', false)
 
 	const handleLOgout = () => {
 		dispatch(logout())
 	}
 
 	const handleSearch = () => {
-		dispatch(getPosts(search.value))
-		setSearch('')
+		dispatch(getPosts(searchByTitle.value))
+		setSearchByTitle('')
 	}
 
 	return (
@@ -30,7 +30,7 @@ const NavBar = () => {
 						<p>Announcement</p>
 					</NavLink>
 					<div className='header__search'>
-						<input className={styles.header__input} type='text' {...search} placeholder='search by title' />
+						<input className={styles.header__input} type='text' {...searchByTitle} placeholder='search by title' />
 						<button type='button' onClick={handleSearch}>
 							search
 						</button>

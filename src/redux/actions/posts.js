@@ -1,5 +1,6 @@
 import ApiPost from '../../api/post'
-import { CREATE_POST, DELETE_POST, SET_ERROR, SET_LOADING, UPDATE_POST, SET_POSTS } from '../types'
+import { CREATE_POST, DELETE_POST, SET_ERROR, SET_LOADING, SET_POSTS, UPDATE_POST } from '../reduces/posts'
+// import { CREATE_POST, DELETE_POST, SET_ERROR, SET_LOADING, UPDATE_POST, SET_POSTS } from '../types'
 
 const postActions = {
 	setLoading: (boolean) => ({ type: SET_LOADING, payload: boolean }),
@@ -14,12 +15,23 @@ export const getPosts = (title) => async (dispatch) => {
 	dispatch(postActions.setLoading(true))
 	try {
 		const posts = await ApiPost.fetchPosts(title)
-		dispatch(postActions.setPosts(posts))
+		dispatch(postActions.setPosts(posts.data))
 		dispatch(postActions.setLoading(false))
 	} catch (e) {
 		dispatch(postActions.setError(e))
 	}
 }
+
+// export const getPost = (id) => async (dispatch) => {
+// 	dispatch(postActions.setLoading(true))
+// 	try {
+// 		const post = await ApiPost.fetchPost(id)
+// 		dispatch(postActions.setPosts(post))
+// 		dispatch(postActions.setLoading(false))
+// 	} catch (e) {
+// 		dispatch(postActions.setError(e))
+// 	}
+// }
 
 export const updatePost = (id, postData) => async (dispatch) => {
 	try {
@@ -38,16 +50,6 @@ export const deletePost = (id) => async (dispatch) => {
 		console.log(e)
 	}
 }
-
-// export const getPost = (id) => async (dispatch) => {
-// 	dispatch(postActions.setLoading(true))
-// 	try {
-// 		const post = await ApiPost.fetchPost(id)
-// 		dispatch(postActions.setPost(post))
-// 	} catch (e) {
-// 		dispatch(postActions.setError(e))
-// 	}
-// }
 
 export const createPost = (postData) => async (dispatch) => {
 	try {

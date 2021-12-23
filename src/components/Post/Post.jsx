@@ -26,11 +26,9 @@ const Post = ({ _id, desc, title, createdAt }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		if (postTitle.value && postDesc.value) {
-			const data = { title: postTitle.value, desc: postDesc.value }
-			dispatch(updatePost(_id, data))
-			toggle()
-		}
+		const data = { title: postTitle.value, desc: postDesc.value }
+		dispatch(updatePost(_id, data))
+		toggle()
 	}
 
 	const handleDelete = () => {
@@ -59,8 +57,8 @@ const Post = ({ _id, desc, title, createdAt }) => {
 						<Modal titleModal='Edit post'>
 							<form className={styles.form} onSubmit={handleSubmit}>
 								<div className={styles.form__inputs}>
-									<input type='text' {...postTitle} placeholder={title || 'title'} />
-									<textarea {...postDesc} placeholder={desc || 'description'} />
+									<input type='text' {...postTitle} placeholder={title} />
+									<textarea {...postDesc} placeholder={desc} />
 								</div>
 
 								<button type='submit'>submit</button>

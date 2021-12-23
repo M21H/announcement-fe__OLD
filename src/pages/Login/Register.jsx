@@ -6,6 +6,7 @@ import { register } from '../../redux/actions/auth'
 import { useHistory } from 'react-router'
 
 import styles from './Styles.module.css'
+import { appActions } from '../../redux/actions/app'
 
 const Register = () => {
 	const dispatch = useDispatch()
@@ -14,7 +15,9 @@ const Register = () => {
 	const [password, setPasswordError] = useInput('', true)
 	const [confirmPassword, , setConfirmPasswordError] = useInput('', true)
 
-	const handleSubmit = async (e) => {
+	dispatch(appActions.initApp(false))
+
+	const handleSubmit = (e) => {
 		e.preventDefault()
 
 		if (password.value !== confirmPassword.value) {
