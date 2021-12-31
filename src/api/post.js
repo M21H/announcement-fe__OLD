@@ -16,8 +16,8 @@ class ApiPost {
 		return data
 	}
 
-	async createPost(postData) {
-		const { data } = await client.post('/posts', postData)
+	async createPost(author, title, desc) {
+		const { data } = await client.post('/posts', { author, title, desc })
 		return data
 	}
 

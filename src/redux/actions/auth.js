@@ -2,6 +2,8 @@ import ApiAuth from '../../api/auth'
 import TokenService from '../../services/storage.service'
 import { decodedUser } from '../../utils/decode'
 import { SET_AUTH_USER_DATA } from '../reduces/auth'
+import { RESET_POST_DATA } from '../reduces/posts'
+import { postActions } from './posts'
 
 export const authActions = {
 	setAuthData: (id, username, createdAt, isAuth) => ({
@@ -32,4 +34,5 @@ export const logout = () => (dispatch) => {
 	// TokenService.removeAuthToken()
 	localStorage.clear()
 	dispatch(authActions.setAuthData(null, null, null, false))
+	// dispatch(postActions.setCurrentPage(1))
 }

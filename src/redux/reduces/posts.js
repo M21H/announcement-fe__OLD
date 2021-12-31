@@ -1,3 +1,5 @@
+import TokenService from '../../services/storage.service'
+
 export const SET_POSTS = 'SET_POSTS'
 
 export const UPDATE_POST = 'UPDATE_POST'
@@ -9,12 +11,14 @@ export const SET_ERROR = 'SET_ERROR'
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 export const SET_TOTAL_PAGE_COUNT = 'SET_TOTAL_PAGE_COUNT'
 
+export const RESET_POST_DATA = 'RESET_POST_DATA'
+
 const initState = {
 	items: [],
 	isLoading: false,
 	pageSize: 2,
 	totalPagesCount: null,
-	currentPage: 1,
+	currentPage: Number(TokenService.getPaginationCurrentPostPage()) || 1,
 }
 
 const Post = (state = initState, action) => {

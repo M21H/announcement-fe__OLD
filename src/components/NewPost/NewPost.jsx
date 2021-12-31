@@ -1,14 +1,17 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import useInput from '../../hooks/useInput'
 import useToggle from '../../hooks/useToggle'
 import { createPost } from '../../redux/actions/posts'
-import Modal from '../Modals/Modal'
+import Modal from '../Modals/Base/Modal'
+import cn from 'classnames'
 
 import styles from './NewPost.module.css'
 
 const NewPost = () => {
 	const dispatch = useDispatch()
+	const { username } = useSelector(({ auth }) => auth)
 	const [isToggle, toggle] = useToggle(false)
 
 	const [author, setAuthor] = useInput('', true)
@@ -18,38 +21,44 @@ const NewPost = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 
-		if (author.value && title.value && desc.value) {
-			const data = { author: author.value, title: title.value, desc: desc.value }
-			dispatch(createPost(data))
-			setAuthor('')
-			setTitle('')
-			setDesc('')
-			toggle()
-		}
+		dispatch(createPost(author.value, title.value, desc.value))
+		setAuthor('')
+		setTitle('')
+		setDesc('')
+		toggle()
 	}
 
 	return (
 		<>
 			<center>
-				<button style={{ margin: 10 }} type='button' onClick={toggle}>
+				<button className='button' style={{ margin: 10 }} type='button' onClick={toggle}>
 					create post
 				</button>
 			</center>
 			{isToggle && (
 				<Modal titleModal='Create new post'>
-					<form className={styles.form} onSubmit={handleSubmit}>
-						<input type='text' {...author} placeholder='author' />
-						{author.error && <span className={styles.error}>{author.error}</span>}
+					<form className='form' onSubmit={handleSubmit}>
+						<div className='formFields'>
+							<input
+								className={cn({ [styles.error]: author.error })}
+								type='text'
+								{...author}
+								placeholder='author'
+								list='authors'
+							/>
+							<datalist id='authors'>
+								<option value={username} />
+							</datalist>
 
-						<input type='text' {...title} placeholder='title' />
-						{title.error && <span className={styles.error}>{title.error}</span>}
+							<input className={cn({ [styles.error]: title.error })} type='text' {...title} placeholder='title' />
 
-						<textarea {...desc} placeholder='description' />
-						{desc.error && <span className={styles.error}>{desc.error}</span>}
-
-						<button type='submit' disabled={!author.value || !title.value || !desc.value}>
-							submit
-						</button>
+							<textarea className={cn({ [styles.error]: desc.error })} {...desc} placeholder='description' />
+						</div>
+						<div className='formActions'>
+							<button className='formButton' type='submit' disabled={!author.value || !title.value || !desc.value}>
+								create
+							</button>
+						</div>
 					</form>
 				</Modal>
 			)}

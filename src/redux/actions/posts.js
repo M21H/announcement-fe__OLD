@@ -9,7 +9,6 @@ import {
 	SET_TOTAL_PAGE_COUNT,
 	UPDATE_POST,
 } from '../reduces/posts'
-// import { CREATE_POST, DELETE_POST, SET_ERROR, SET_LOADING, UPDATE_POST, SET_POSTS } from '../types'
 
 export const postActions = {
 	setLoading: (boolean) => ({ type: SET_LOADING, payload: boolean }),
@@ -29,7 +28,7 @@ export const getPosts = (currentPage, pageSize) => async (dispatch) => {
 		const { data, total } = await ApiPost.fetchPosts(currentPage, pageSize)
 		dispatch(postActions.setTotalPostsCount(total))
 		dispatch(postActions.setPosts(data))
-		
+
 		dispatch(postActions.setLoading(false))
 	} catch (e) {
 		dispatch(postActions.setError(e))
@@ -65,9 +64,9 @@ export const deletePost = (id) => async (dispatch) => {
 	}
 }
 
-export const createPost = (postData) => async (dispatch) => {
+export const createPost = (author, title, desc) => async (dispatch) => {
 	try {
-		const post = await ApiPost.createPost(postData)
+		const post = await ApiPost.createPost(author, title, desc)
 		dispatch(postActions.createPost(post))
 	} catch (e) {
 		dispatch(postActions.setError(e))

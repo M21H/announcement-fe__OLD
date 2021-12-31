@@ -29,13 +29,41 @@
   opacity: 0.6;
 }
 
-/* .form {
-  display: flex;
-  flex-direction: column;
-} */
+.error {
+	border: 2px solid red;
+}
 
-/* .form__inputs input, textarea {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-} */
+
+
+.form {
+	padding: 0 100px;
+	margin-top: 15px;
+}
+
+.formFields > textarea {
+  height: 300px;
+}
+
+.formFields > input,
+textarea {
+	display: block;
+	font-size: 20px;
+	padding: 10px;
+	width: 100%;
+	margin: 10px 0;
+	height: 50px;
+}
+
+.error {
+	border: 2px solid red;
+}
+
+.btn {
+  cursor: pointer;
+  margin: 10px 0;
+  width: 100px;
+	height: 40px;
+	border-radius: 5px;
+	font-size: 20px;
+}
+

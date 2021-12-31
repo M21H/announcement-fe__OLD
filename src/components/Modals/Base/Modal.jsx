@@ -1,15 +1,26 @@
-import React, { useState } from 'react'
-import closeIcon from '../../assets/icons/close.png'
-import Portal from '../Portal/Portal'
+import React, { useCallback, useEffect, useState } from 'react'
+import closeIcon from '../../../assets/icons/close.png'
+import Portal from '../../Portal/Portal'
 
 import styles from './Modal.module.css'
 
 const Modal = ({ titleModal, children }) => {
 	const [display, setDisplay] = useState(true)
 
-	const handleClose = () => {
+	const handleClose = useCallback(() => {
 		setDisplay(false)
-	}
+	}, [display])
+
+	useEffect(() => {
+		const handleKeyClosed = (e) => {
+			if (e.keyCode === 27) {
+				setDisplay(false)
+			}
+		}
+
+		document.addEventListener('keydown', handleKeyClosed)
+		return () => document.removeEventListener('keydown', handleKeyClosed)
+	}, [])
 
 	return display ? (
 		<Portal>

@@ -31,7 +31,7 @@ const NavBar = () => {
 					</NavLink>
 					<div className='header__search'>
 						<input className={styles.header__input} type='text' {...searchByTitle} placeholder='search by title' />
-						<button type='button' onClick={handleSearch}>
+						<button className='button' type='button' onClick={handleSearch}>
 							search
 						</button>
 					</div>

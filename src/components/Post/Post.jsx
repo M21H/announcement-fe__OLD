@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
-import Modal from '../Modals/Modal'
+import Modal from '../Modals/Base/Modal'
 import { useDispatch } from 'react-redux'
 import useInput from '../../hooks/useInput'
 import { deletePost, updatePost } from '../../redux/actions/posts'
+import cn from 'classnames'
 
 import styles from './Post.module.css'
 import useToggle from '../../hooks/useToggle'
 
 const Post = ({ _id, desc, title, createdAt }) => {
 	const dispatch = useDispatch()
-	const [isToggle, toggle] = useToggle(false)
+
+	const [isToggleModal, toggleModal] = useToggle(false)
+
 	const [postTitle, setPostTitle] = useInput(title, false)
 	const [postDesc, setPostDesc] = useInput(desc, false)
 
@@ -26,16 +29,18 @@ const Post = ({ _id, desc, title, createdAt }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const data = { title: postTitle.value, desc: postDesc.value }
-		dispatch(updatePost(_id, data))
-		toggle()
+		if (postTitle.value && postDesc.value) {
+			const data = { title: postTitle.value, desc: postDesc.value }
+			dispatch(updatePost(_id, data))
+			toggleModal()
+		}
 	}
 
 	const handleDelete = () => {
 		const confirm = window.confirm('are you sure?')
 		if (confirm) {
 			dispatch(deletePost(_id))
-			toggle()
+			toggleModal()
 		}
 	}
 
@@ -50,24 +55,41 @@ const Post = ({ _id, desc, title, createdAt }) => {
 				<span className={styles.postedOn}>Posted on: {createdAt.slice(0, 10)}</span>
 				<div className={styles.actions}>
 					<NavLink to={`/posts/${_id}`}>About</NavLink>
-					<span style={{ cursor: 'pointer' }} onClick={toggle}>
+					<span style={{ cursor: 'pointer' }} onClick={toggleModal}>
 						Edit
 					</span>
-					{isToggle && (
+					{isToggleModal && (
 						<Modal titleModal='Edit post'>
-							<form className={styles.form} onSubmit={handleSubmit}>
-								<div className={styles.form__inputs}>
-									<input type='text' {...postTitle} placeholder={title} />
-									<textarea {...postDesc} placeholder={desc} />
+							<form className='form' onSubmit={handleSubmit}>
+								<div className='formFields'>
+									<input
+										className={cn({ [styles.error]: title.error })}
+										type='text'
+										{...postTitle}
+										placeholder={title}
+									/>
+									<textarea className={cn({ [styles.error]: title.error })} {...postDesc} placeholder={desc} />
 								</div>
 
-								<button type='submit'>submit</button>
-								<button style={{ backgroundColor: 'red' }} type='button' onClick={handleDelete}>
-									delete post
-								</button>
-								<button type='button' onClick={resetFields}>
-									clear field
-								</button>
+								<div className='formActions'>
+									<button className='formButton' type='submit' disabled={!postTitle.value || !postDesc.value}>
+										submit
+									</button>
+									<button
+										className='formButton'
+										style={{ backgroundColor: 'red' }}
+										type='button'
+										onClick={handleDelete}>
+										delete
+									</button>
+									<button
+										className='formButton'
+										type='button'
+										onClick={resetFields}
+										disabled={!postTitle.value && !postDesc.value}>
+										clear field
+									</button>
+								</div>
 							</form>
 						</Modal>
 					)}

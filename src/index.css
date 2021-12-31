@@ -1,3 +1,5 @@
+@import-normalize;
+
 *,
 ::before,
 ::after {
@@ -11,7 +13,6 @@
 
 a {
 	text-decoration: none;
-	/* color: white; */
 }
 
 .header__text {
@@ -23,6 +24,12 @@ a {
 	height: 25px;
 	min-width: 50px;
 	padding: 0 5px;
+	cursor: pointer;
+}
+
+button:disabled,
+.button:disabled {
+	pointer-events: none;
 }
 
 .container {
@@ -32,4 +39,41 @@ a {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+/* =>FOR MODALS FIELDS<= */
+
+.form {
+	padding: 0 100px;
+	margin-top: 15px;
+}
+.formFields > textarea {
+	height: 300px;
+}
+.formFields > input,
+textarea {
+	display: block;
+	font-size: 20px;
+	padding: 10px;
+	width: 100%;
+	margin: 10px 0;
+	height: 50px;
+}
+.error {
+	border: 2px solid red;
+}
+
+.formButton {
+	cursor: pointer;
+	margin: 10px 0 10px 10px;
+	min-width: 100px;
+	height: 40px;
+	border-radius: 5px;
+	font-size: 20px;
+}
+
+.formActions {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 }
