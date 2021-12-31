@@ -1,8 +1,8 @@
 import { client } from '.'
 
 class ApiPost {
-	async fetchPosts(title = '') {
-		const { data } = await client.get(`/posts`)
+	async fetchPosts(page = 1, size = 3) {
+		const { data } = await client.get(`/posts?page=${page}&size=${size}`)
 		return data
 	}
 

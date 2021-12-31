@@ -8,6 +8,13 @@ class TokenService {
 	removeAuthToken() {
 		localStorage.removeItem('authToken')
 	}
+
+	setPaginationCurrentPostPage(page) {
+		localStorage.setItem('currentPostPage', page)
+	}
+	getPaginationCurrentPostPage() {
+		return localStorage.getItem('currentPostPage')
+	}
 }
 
 export default new TokenService()

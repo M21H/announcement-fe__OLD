@@ -29,6 +29,7 @@ export const register = (registerData) => async (dispatch) => {
 }
 
 export const logout = () => (dispatch) => {
-	TokenService.removeAuthToken()
+	// TokenService.removeAuthToken()
+	localStorage.clear()
 	dispatch(authActions.setAuthData(null, null, null, false))
 }

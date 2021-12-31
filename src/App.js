@@ -8,15 +8,17 @@ import { initApp } from './redux/actions/app'
 import Login from './pages/Login/Login'
 import Register from './pages/Login/Register'
 import AboutPost from './components/AboutPost/AboutPost'
-import { getPosts } from './redux/actions/posts'
+// import { getPosts } from './redux/actions/posts'
 
 const App = () => {
 	const dispatch = useDispatch()
+	// const { isAuth } = useSelector(({ auth }) => auth)
 
 	useEffect(() => {
 		dispatch(initApp())
-		dispatch(getPosts())
 	}, [dispatch])
+
+
 
 	return (
 		<>

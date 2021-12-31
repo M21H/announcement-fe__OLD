@@ -12,3 +12,11 @@
 	height: calc(100vh - 50px);
 	font-size: 30px;
 }
+.selected {
+	font-weight: bold;
+}
+
+.paginationList {
+	display: flex;
+	list-style: none;
+}
